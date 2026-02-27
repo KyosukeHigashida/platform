@@ -32,6 +32,13 @@
   --verdigris:     #2a5848;
   --verdigris-dim: #1a3830;
 
+  /* Sky — 鉄と錆の隙間から見える夏の青空 */
+  --sky:           #3e7db8;
+  --sky-bright:    #5a9fd0;
+  --sky-pale:      #8ec4e8;
+  --sky-deep:      #1c3e68;
+  --glow-sky:      0 0 36px rgba(62, 125, 184, 0.38);
+
   /* Iron / pipe */
   --pipe-hi:       #7a5028;   /* top highlight of cylinder */
   --pipe-mid:      #4a2e14;   /* mid-tone */
@@ -90,31 +97,60 @@ body {
   color: var(--fg);
   background-color: var(--bg);
   background-image:
-    /* Steam haze rising from top */
+    /* 空の裂け目 — 左上、鉄板が合わない隙間 */
+    radial-gradient(
+      ellipse 58% 38% at -12% 0%,
+      rgba(100, 175, 235, 0.48) 0%,
+      rgba(65, 130, 190, 0.20) 45%,
+      transparent 80%
+    ),
+    /* 空の裂け目 — 右上、一番大きな開口部 */
+    radial-gradient(
+      ellipse 68% 44% at 114% -6%,
+      rgba(125, 200, 255, 0.52) 0%,
+      rgba(75, 148, 208, 0.22) 48%,
+      transparent 80%
+    ),
+    /* 蒸気の霞 — 上から立ち上る */
     radial-gradient(
       ellipse 90% 35% at 50% -5%,
-      rgba(180, 150, 100, 0.07) 0%,
+      rgba(180, 150, 100, 0.06) 0%,
       transparent 100%
     ),
-    /* Rust bleed — bottom-left corner */
+    /* 錆の染み — 左下 */
     radial-gradient(
-      ellipse 55% 40% at -5% 100%,
-      rgba(100, 32, 8, 0.22) 0%,
+      ellipse 62% 44% at -5% 108%,
+      rgba(110, 35, 8, 0.38) 0%,
       transparent 60%
     ),
-    /* Rust bleed — top-right corner */
+    /* 錆の染み — 右下 */
     radial-gradient(
-      ellipse 45% 35% at 105% 0%,
-      rgba(80, 24, 6, 0.18) 0%,
+      ellipse 42% 32% at 110% 95%,
+      rgba(80, 24, 6, 0.28) 0%,
       transparent 60%
     ),
-    /* Iron plate scanlines */
+    /* 鉄板の走査線 */
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.12) 2px,
-      rgba(0, 0, 0, 0.12) 3px
+      rgba(0, 0, 0, 0.16) 2px,
+      rgba(0, 0, 0, 0.16) 3px
+    ),
+    /* 斜め引っ掻き傷 — 機械のぶつかり痕 */
+    repeating-linear-gradient(
+      -37deg,
+      transparent,
+      transparent 155px,
+      rgba(0, 0, 0, 0.06) 155px,
+      rgba(0, 0, 0, 0.06) 156px
+    ),
+    repeating-linear-gradient(
+      22deg,
+      transparent,
+      transparent 280px,
+      rgba(80, 30, 8, 0.04) 280px,
+      rgba(80, 30, 8, 0.04) 281px
     );
   min-height: 100vh;
   animation: pageFade 0.55s ease both;
@@ -127,9 +163,30 @@ body::before {
   inset: 0;
   /* Warmer turbulence noise — suggests soot and rust dust */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1.2 0.3 0 0 0.08  0.4 0.8 0 0 0.02  0.1 0.1 0.6 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
-  opacity: 0.055;
+  opacity: 0.115;
   pointer-events: none;
   z-index: 9999;
+}
+
+/* 煤と引っ掻き傷のオーバーレイ — 使い込まれた機械の痕跡 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      -52deg,
+      transparent,
+      transparent 210px,
+      rgba(100, 45, 10, 0.05) 210px,
+      rgba(100, 45, 10, 0.05) 213px,
+      transparent 213px,
+      transparent 270px,
+      rgba(0, 0, 0, 0.04) 270px,
+      rgba(0, 0, 0, 0.04) 271px
+    );
+  pointer-events: none;
+  z-index: 9998;
 }
 
 /* ══════════════════════════════════════════
@@ -235,9 +292,9 @@ hr::before {
     transparent 0%,
     var(--rust-dark) 10%,
     var(--rust-oxide) 25%,
-    var(--copper) 45%,
-    var(--pipe-hi) 50%,
-    var(--copper) 55%,
+    var(--copper) 42%,
+    var(--sky-bright) 50%,
+    var(--copper) 58%,
     var(--rust-oxide) 75%,
     var(--rust-dark) 90%,
     transparent 100%
@@ -347,12 +404,13 @@ nav a:hover::after {
 }
 
 nav a[aria-current="page"] {
-  color: var(--gold);
+  color: var(--sky-bright);
 }
 
 nav a[aria-current="page"]::after {
+  background: var(--sky-bright);
   transform: scaleX(1);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* ══════════════════════════════════════════
@@ -416,7 +474,7 @@ h3 {
   font-size: 1rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--verdigris);
+  color: var(--sky-bright);
   margin-top: 2.5rem;
   margin-bottom: 0.9rem;
 }
@@ -466,7 +524,7 @@ h4 {
 }
 
 .post-list li:hover::before {
-  color: var(--gold);
+  color: var(--sky-bright);
   transform: rotate(60deg);
 }
 
@@ -537,29 +595,30 @@ time {
   );
 }
 
-/* Rust streak on right edge — aging detail */
+/* Rust streak on right edge — 錆の垂れ */
 .work-card::after {
   content: '';
   position: absolute;
   top: 5px;
   right: 0;
-  width: 1px;
+  width: 3px;
   bottom: 0;
   background: linear-gradient(
     to bottom,
-    var(--rust-oxide) 0%,
-    transparent 40%,
-    var(--rust-dark) 80%,
+    var(--rust-bright) 0%,
+    var(--rust-oxide) 25%,
+    transparent 50%,
+    var(--rust-dark) 75%,
     transparent 100%
   );
-  opacity: 0.4;
+  opacity: 0.65;
   pointer-events: none;
 }
 
 .work-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--glow-copper), var(--shadow-deep);
-  border-color: var(--copper);
+  box-shadow: var(--glow-sky), var(--shadow-deep);
+  border-color: var(--sky);
   text-decoration: none;
 }
 
@@ -786,7 +845,7 @@ pre code {
 }
 
 .site-footer a:hover {
-  color: var(--copper);
+  color: var(--sky-bright);
 }
 
 /* ══════════════════════════════════════════
