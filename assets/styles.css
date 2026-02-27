@@ -201,6 +201,59 @@ time {
   font-size: 0.85rem;
 }
 
+/* ── Works grid ── */
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--copper);
+  text-decoration: none;
+  transition: border-color 0.2s;
+  overflow: hidden;
+}
+
+.work-card:hover {
+  border-color: var(--gold);
+  text-decoration: none;
+}
+
+.work-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--line);
+}
+
+.work-card span {
+  padding: 0.5rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--fg);
+  line-height: 1.4;
+}
+
+.work-card-link-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 120px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--gold) !important;
+  text-align: center;
+  line-height: 1.6;
+}
+
 /* ── Footer ── */
 
 .site-footer {
