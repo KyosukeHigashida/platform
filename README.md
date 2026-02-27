@@ -1,16 +1,20 @@
-# Minimal Blog Template
+# Higashida Kyosuke — Personal Blog
 
-This repository contains a minimal static blog scaffold designed for GitHub Pages.
+Personal blog of Higashida Kyosuke. Built as a static site, hosted on GitHub Pages.
+
+**URL**: https://kyosukehigashida.github.io/platform/
 
 ## Structure
 
-- `index.html`: blog top page with post list
-- `posts/welcome.html`: first post template
-- `assets/styles.css`: shared styles
+- `index.html` — top page
+- `about.html` — about
+- `works.html` — works (drawings, math slides, etc.)
+- `notes.html` — short notes
+- `links.html` — links
+- `posts/` — blog posts
+- `assets/styles.css` — shared styles
 
 ## Local preview
-
-Open `index.html` in your browser, or run a local static server:
 
 ```bash
 python3 -m http.server 8000
@@ -20,15 +24,6 @@ Then open `http://localhost:8000`.
 
 ## Deploy to GitHub Pages
 
-1. Create a GitHub repository and push this directory.
-2. Go to repository settings -> `Pages`.
-3. In `Build and deployment`, select:
-   - Source: `Deploy from a branch`
-   - Branch: `main` (or your default branch)
-   - Folder: `/ (root)`
-4. Save and wait for deployment.
-
-Your site will be published at:
-
-- User/Org site: `https://<username>.github.io/`
-- Project site: `https://<username>.github.io/<repository>/`
+1. Push to GitHub.
+2. Repository settings → Pages → Deploy from branch → `main` / `(root)`.
+3. Save and wait for deployment.

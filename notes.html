@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes - Higashida Kyosuke</title>
+  <meta name="description" content="Higashida Kyosuke のメモ。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Higashida Kyosuke">
+  <meta property="og:title" content="Notes - Higashida Kyosuke">
+  <meta property="og:description" content="Higashida Kyosuke のメモ。">
+  <meta property="og:url" content="https://kyosukehigashida.github.io/platform/notes.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@kyow_QQ">
+  <meta name="twitter:title" content="Notes - Higashida Kyosuke">
+  <meta name="twitter:description" content="Higashida Kyosuke のメモ。">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1><a href="index.html">Higashida Kyosuke</a></h1>
+    <p class="tagline">Things I think and things I make.</p>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="works.html">Works</a>
+      <a href="notes.html">Notes</a>
+      <a href="links.html">Links</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>Notes</h2>
+      <ul class="post-list" id="notes-list">
+        <li style="color:var(--muted)">読み込み中…</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small><a href="index.html">Back to home</a></small>
+  </footer>
+
+  <script>
+    fetch('notes/index.json')
+      .then(r => r.json())
+      .then(notes => {
+        const list = document.getElementById('notes-list');
+        if (notes.length === 0) {
+          list.innerHTML = '<li style="color:var(--muted)">まだ記事がありません。</li>';
+          return;
+        }
+        list.innerHTML = notes.map(n => `
+          <li>
+            <a href="notes/${n.file}">${n.title}</a>
+            <time datetime="${n.date}">${n.date}</time>
+          </li>`).join('');
+      });
+  </script>
+</body>
+</html>

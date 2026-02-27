@@ -1,32 +1,70 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Blog</title>
-  <meta name="description" content="A minimal blog template for GitHub Pages">
+  <title>Higashida Kyosuke</title>
+  <meta name="description" content="Things I think and things I make.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Higashida Kyosuke">
+  <meta property="og:title" content="Higashida Kyosuke">
+  <meta property="og:description" content="Things I think and things I make.">
+  <meta property="og:url" content="https://kyosukehigashida.github.io/platform/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@kyow_QQ">
+  <meta name="twitter:title" content="Higashida Kyosuke">
+  <meta name="twitter:description" content="Things I think and things I make.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <header class="site-header">
-    <h1>My Blog</h1>
-    <p class="tagline">Notes, ideas, and progress logs.</p>
+    <h1>Higashida Kyosuke</h1>
+    <p class="tagline">Things I think and things I make.</p>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="works.html">Works</a>
+      <a href="notes.html">Notes</a>
+      <a href="links.html">Links</a>
+    </nav>
   </header>
 
   <main class="container">
     <section>
-      <h2>Posts</h2>
-      <ul class="post-list">
-        <li>
-          <a href="posts/welcome.html">Welcome Post</a>
-          <time datetime="2026-02-27">2026-02-27</time>
-        </li>
+      <p>
+        東京大学大学院数理科学研究科の修士課程に在籍しています。専門は無限次元Lie代数の表現論。<br>
+        趣味はボルダリング、DIY、計算機いじり、ダンス、音楽など。<br>
+        思ったことや作ったものを気ままに置いていきます。
+      </p>
+    </section>
+
+    <section>
+      <h2>Notes</h2>
+      <ul class="post-list" id="notes-list">
+        <li style="color:var(--muted)">読み込み中…</li>
       </ul>
+      <p><a href="notes.html">すべて見る →</a></p>
     </section>
   </main>
 
+  <script>
+    fetch('notes/index.json')
+      .then(r => r.json())
+      .then(notes => {
+        const list = document.getElementById('notes-list');
+        if (notes.length === 0) {
+          list.innerHTML = '<li style="color:var(--muted)">まだ記事がありません。</li>';
+          return;
+        }
+        list.innerHTML = notes.slice(0, 3).map(n => `
+          <li>
+            <a href="notes/${n.file}">${n.title}</a>
+            <time datetime="${n.date}">${n.date}</time>
+          </li>`).join('');
+      });
+  </script>
+
   <footer class="site-footer">
-    <small>Copyright 2026 My Blog</small>
+    <small>Copyright 2026 Higashida Kyosuke</small>
   </footer>
 </body>
 </html>
