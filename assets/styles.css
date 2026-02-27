@@ -1,31 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Oswald:wght@400;500;600&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap');
 
 /* ══════════════════════════════════════════
-   Palette — arcane workshop logbook
+   Palette — corroded iron workshop
    ══════════════════════════════════════════ */
 :root {
-  --bg:            #0b0703;
-  --bg-deep:       #080502;
-  --bg-card:       #171008;
-  --bg-surface:    #1e1509;
+  /* Iron plate backgrounds */
+  --bg:            #0d0a07;
+  --bg-deep:       #09060402;
+  --bg-card:       #141008;
+  --bg-surface:    #1a1409;
+  --iron-plate:    #111009;
 
-  --fg:            #c5a578;
-  --fg-bright:     #e4cfaa;
-  --fg-dim:        #8a6e4e;
+  /* Text */
+  --fg:            #bfa07a;
+  --fg-bright:     #deccaa;
+  --fg-dim:        #806848;
 
-  --copper:        #b87333;
-  --copper-light:  #d4914a;
-  --gold:          #c9a840;
-  --gold-dim:      #8a7228;
-  --muted:         #5a4430;
-  --line:          #241808;
-  --line-mid:      #332010;
-  --line-bright:   #4a2e14;
-  --rust:          #7a2c0e;
+  /* Brass / copper accents */
+  --copper:        #b06828;
+  --copper-light:  #cc8038;
+  --gold:          #b89030;
+  --gold-dim:      #7a6018;
 
-  --glow-copper:   0 0 28px rgba(184, 115, 51, 0.22);
-  --glow-gold:     0 0 16px rgba(201, 168, 64, 0.18);
-  --shadow-deep:   0 6px 32px rgba(0, 0, 0, 0.65);
+  /* Rust — the key new color family */
+  --rust:          #8b2c08;
+  --rust-bright:   #b84018;
+  --rust-dark:     #4a1606;
+  --rust-oxide:    #6b3010;
+
+  /* Verdigris — oxidized copper, cool contrast */
+  --verdigris:     #2a5848;
+  --verdigris-dim: #1a3830;
+
+  /* Iron / pipe */
+  --pipe-hi:       #7a5028;   /* top highlight of cylinder */
+  --pipe-mid:      #4a2e14;   /* mid-tone */
+  --pipe-shadow:   #1a0e06;   /* bottom shadow */
+
+  /* Structural lines */
+  --muted:         #58402c;
+  --line:          #1e1408;
+  --line-mid:      #2e1c0c;
+  --line-bright:   #422810;
+
+  /* Effects */
+  --glow-copper:   0 0 28px rgba(176, 104, 40, 0.28);
+  --glow-rust:     0 0 20px rgba(139, 44, 8, 0.35);
+  --shadow-deep:   0 6px 32px rgba(0, 0, 0, 0.7);
 }
 
 /* ══════════════════════════════════════════
@@ -69,31 +90,44 @@ body {
   color: var(--fg);
   background-color: var(--bg);
   background-image:
-    /* Warm radial bloom from top */
+    /* Steam haze rising from top */
     radial-gradient(
-      ellipse 100% 55% at 50% 0%,
-      rgba(30, 18, 6, 0.75) 0%,
+      ellipse 90% 35% at 50% -5%,
+      rgba(180, 150, 100, 0.07) 0%,
       transparent 100%
     ),
-    /* Fine horizontal scanlines */
+    /* Rust bleed — bottom-left corner */
+    radial-gradient(
+      ellipse 55% 40% at -5% 100%,
+      rgba(100, 32, 8, 0.22) 0%,
+      transparent 60%
+    ),
+    /* Rust bleed — top-right corner */
+    radial-gradient(
+      ellipse 45% 35% at 105% 0%,
+      rgba(80, 24, 6, 0.18) 0%,
+      transparent 60%
+    ),
+    /* Iron plate scanlines */
     repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.09) 3px,
-      rgba(0, 0, 0, 0.09) 4px
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 3px
     );
   min-height: 100vh;
   animation: pageFade 0.55s ease both;
 }
 
-/* Grain overlay */
+/* Grime + noise overlay */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.04;
+  /* Warmer turbulence noise — suggests soot and rust dust */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1.2 0.3 0 0 0.08  0.4 0.8 0 0 0.02  0.1 0.1 0.6 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+  opacity: 0.055;
   pointer-events: none;
   z-index: 9999;
 }
@@ -112,48 +146,61 @@ a:hover {
 }
 
 /* ══════════════════════════════════════════
-   Horizontal Rule — ornamental
+   Horizontal Rule — horizontal pipe with joint
    ══════════════════════════════════════════ */
 hr {
   border: none;
-  margin: 2.75rem 0;
+  margin: 3rem 0;
   position: relative;
-  height: 1px;
+  height: 10px;
   overflow: visible;
 }
 
-/* Diamond centered on the rule */
+/* Pipe body — cylindrical gradient shading */
+hr::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 4%;
+  right: 4%;
+  height: 10px;
+  /* top-shadow → highlight → mid → shadow = cylinder illusion */
+  background: linear-gradient(
+    to bottom,
+    #060402          0%,
+    #060402          8%,
+    #2e1a0a          18%,
+    var(--pipe-hi)   32%,
+    var(--pipe-mid)  52%,
+    var(--pipe-shadow) 78%,
+    #060402          100%
+  );
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(180,120,60,0.15);
+  z-index: 1;
+}
+
+/* Pipe joint / union — circular connector at center */
 hr::before {
-  content: '◆';
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: var(--copper);
-  font-size: 0.5rem;
-  z-index: 2;
-}
-
-/* Two-halves gradient line with gap for diamond */
-hr::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--line-bright) 10%,
-    var(--copper) 40%,
-    transparent 47%,
-    transparent 53%,
-    var(--copper) 60%,
-    var(--line-bright) 90%,
-    transparent 100%
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    var(--pipe-hi)    0%,
+    var(--copper)     28%,
+    var(--pipe-mid)   55%,
+    var(--pipe-shadow) 80%,
+    #040302           100%
   );
-  z-index: 1;
+  box-shadow:
+    0 0 0 3px var(--line-bright),
+    0 0 0 4px var(--pipe-shadow),
+    0 3px 8px rgba(0,0,0,0.7);
+  z-index: 2;
 }
 
 /* ══════════════════════════════════════════
@@ -177,7 +224,7 @@ hr::after {
   animation: headerSlide 0.5s ease both;
 }
 
-/* Top thin gradient rule */
+/* Top thin rust/copper gradient rule */
 .site-header::before {
   content: '';
   display: block;
@@ -186,41 +233,37 @@ hr::after {
   background: linear-gradient(
     to right,
     transparent 0%,
-    var(--line-bright) 15%,
-    var(--copper) 35%,
-    var(--gold) 50%,
-    var(--copper) 65%,
-    var(--line-bright) 85%,
+    var(--rust-dark) 10%,
+    var(--rust-oxide) 25%,
+    var(--copper) 45%,
+    var(--pipe-hi) 50%,
+    var(--copper) 55%,
+    var(--rust-oxide) 75%,
+    var(--rust-dark) 90%,
     transparent 100%
   );
   transform-origin: center;
   animation: lineGrow 0.7s ease both 0.1s;
 }
 
-/* Bottom double rule: gold hairline + copper main */
+/* Bottom: full-width pipe */
 .site-header::after {
   content: '';
   display: block;
   margin-top: 1.5rem;
-  height: 5px;
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      var(--gold-dim) 20%,
-      var(--gold) 50%,
-      var(--gold-dim) 80%,
-      transparent
-    ) 0 0 / 100% 1px no-repeat,
-    linear-gradient(
-      to right,
-      transparent,
-      var(--rust) 5%,
-      var(--copper) 25%,
-      var(--copper) 75%,
-      var(--rust) 95%,
-      transparent
-    ) 0 100% / 100% 3px no-repeat;
+  height: 8px;
+  background: linear-gradient(
+    to bottom,
+    #060402           0%,
+    #060402           6%,
+    var(--rust-dark)  16%,
+    var(--pipe-hi)    34%,
+    var(--copper)     48%,
+    var(--pipe-mid)   64%,
+    var(--pipe-shadow) 82%,
+    #060402           100%
+  );
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
 }
 
 /* ── Site title ── */
@@ -342,8 +385,8 @@ h2 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg-bright);
-  margin-bottom: 1.4rem;
-  padding-bottom: 0.65rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
   position: relative;
 }
 
@@ -353,13 +396,18 @@ h2::after {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 5px;
+  /* Mini pipe cross-section */
   background: linear-gradient(
-    to right,
-    var(--copper) 0%,
-    var(--line-bright) 55%,
-    transparent 100%
+    to bottom,
+    #060402         0%,
+    var(--rust-dark) 15%,
+    var(--pipe-hi)   38%,
+    var(--pipe-mid)  60%,
+    var(--pipe-shadow) 85%,
+    #060402         100%
   );
+  opacity: 0.85;
 }
 
 h3 {
@@ -368,7 +416,7 @@ h3 {
   font-size: 1rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--copper);
+  color: var(--verdigris);
   margin-top: 2.5rem;
   margin-bottom: 0.9rem;
 }
@@ -454,7 +502,14 @@ time {
 .work-card {
   display: flex;
   flex-direction: column;
-  background: var(--bg-card);
+  /* Iron plate with rivet dots at all four corners */
+  background-color: var(--bg-card);
+  background-image:
+    radial-gradient(circle 2.5px at 7px 7px,       var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at calc(100% - 7px) 7px, var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at 7px calc(100% - 7px), var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at calc(100% - 7px) calc(100% - 7px), var(--pipe-hi) 50%, transparent 50%);
+  background-repeat: no-repeat;
   border: 1px solid var(--line-bright);
   text-decoration: none;
   position: relative;
@@ -465,31 +520,39 @@ time {
     border-color 0.22s ease;
 }
 
-/* Gradient top accent bar (replaces flat border-top) */
+/* Mini-pipe top bar */
 .work-card::before {
   content: '';
   display: block;
-  height: 2px;
+  height: 5px;
   flex-shrink: 0;
   background: linear-gradient(
-    to right,
-    var(--rust)   0%,
-    var(--copper) 30%,
-    var(--gold)   50%,
-    var(--copper) 70%,
-    var(--rust)   100%
+    to bottom,
+    #060402         0%,
+    var(--rust-dark) 15%,
+    var(--pipe-hi)   35%,
+    var(--rust-oxide) 58%,
+    var(--pipe-shadow) 85%,
+    #060402         100%
   );
 }
 
-/* Corner rivet mark */
+/* Rust streak on right edge — aging detail */
 .work-card::after {
-  content: '●';
+  content: '';
   position: absolute;
-  top: 0.45rem;
-  right: 0.45rem;
-  font-size: 0.28rem;
-  color: var(--copper);
-  opacity: 0.55;
+  top: 5px;
+  right: 0;
+  width: 1px;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--rust-oxide) 0%,
+    transparent 40%,
+    var(--rust-dark) 80%,
+    transparent 100%
+  );
+  opacity: 0.4;
   pointer-events: none;
 }
 
@@ -538,43 +601,57 @@ time {
 }
 
 /* ══════════════════════════════════════════
-   Article / Post card
+   Article / Post card — iron panel
    ══════════════════════════════════════════ */
 .post {
-  background: var(--bg-card);
+  /* Iron panel with rivets at all four corners */
+  background-color: var(--bg-card);
+  background-image:
+    radial-gradient(circle 3px at 10px 10px,         var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 3px at calc(100% - 10px) 10px, var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 3px at 10px calc(100% - 10px), var(--pipe-hi) 50%, transparent 50%),
+    radial-gradient(circle 3px at calc(100% - 10px) calc(100% - 10px), var(--pipe-hi) 50%, transparent 50%);
+  background-repeat: no-repeat;
   border: 1px solid var(--line-bright);
   padding: 2.25rem 2.5rem;
   position: relative;
   overflow: hidden;
 }
 
-/* Gradient top bar */
+/* Top pipe bar */
 .post::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 6px;
   background: linear-gradient(
-    to right,
-    var(--rust)   0%,
-    var(--copper) 20%,
-    var(--gold)   50%,
-    var(--copper) 80%,
-    var(--rust)   100%
+    to bottom,
+    #060402           0%,
+    var(--rust-dark)  12%,
+    var(--pipe-hi)    32%,
+    var(--rust-oxide) 55%,
+    var(--pipe-shadow) 82%,
+    #060402           100%
   );
 }
 
-/* Corner rivet */
+/* Rust drip on right edge */
 .post::after {
-  content: '●';
+  content: '';
   position: absolute;
-  top: 0.6rem;
-  right: 0.85rem;
-  font-size: 0.4rem;
-  color: var(--copper);
-  opacity: 0.5;
+  top: 6px;
+  right: 0;
+  width: 1px;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    var(--rust-oxide) 0%,
+    var(--rust-dark) 40%,
+    transparent 100%
+  );
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -685,30 +762,22 @@ pre code {
   letter-spacing: 0.06em;
 }
 
-/* Ornamental separator: two lines */
+/* Footer pipe separator */
 .site-footer::before {
   content: '';
   display: block;
-  height: 4px;
+  height: 6px;
   margin-bottom: 1.35rem;
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      var(--rust) 5%,
-      var(--copper) 30%,
-      var(--copper) 70%,
-      var(--rust) 95%,
-      transparent
-    ) 0 100% / 100% 2px no-repeat,
-    linear-gradient(
-      to right,
-      transparent,
-      var(--line-bright) 20%,
-      var(--gold) 50%,
-      var(--line-bright) 80%,
-      transparent
-    ) 0 0 / 100% 1px no-repeat;
+  background: linear-gradient(
+    to bottom,
+    #060402           0%,
+    var(--rust-dark)  15%,
+    var(--pipe-hi)    35%,
+    var(--pipe-mid)   60%,
+    var(--pipe-shadow) 85%,
+    #060402           100%
+  );
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .site-footer a {
