@@ -119,18 +119,18 @@
    Keyframes
    ══════════════════════════════════════════ */
 @keyframes pageFade {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0);   }
+  from { transform: translateY(5px); }
+  to   { transform: translateY(0);   }
 }
 
 @keyframes headerSlide {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from { transform: translateY(-3px); }
+  to   { transform: translateY(0);    }
 }
 
 @keyframes lineGrow {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 /* ══════════════════════════════════════════
@@ -262,50 +262,38 @@ hr {
   overflow: visible;
 }
 
-/* Pipe body — cylindrical gradient shading */
+/* 錆びた鉄の横断面 — 光沢なし、マット */
 hr::after {
   content: '';
   position: absolute;
   top: 0; left: 4%;
   right: 4%;
   height: 10px;
-  /* top-shadow → highlight → mid → shadow = cylinder illusion */
   background: linear-gradient(
     to bottom,
-    #060402          0%,
-    #060402          8%,
-    #2e1a0a          18%,
-    var(--pipe-hi)   32%,
-    var(--pipe-mid)  52%,
-    var(--pipe-shadow) 78%,
-    #060402          100%
+    var(--rust-dark)  0%,
+    var(--rust-oxide) 45%,
+    var(--rust-dark)  100%
   );
-  box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(180,120,60,0.15);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
   z-index: 1;
 }
 
-/* Pipe joint / union — circular connector at center */
+/* 中央のリベット — 浮き彫り、光沢なし */
 hr::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 40% 35%,
-    var(--pipe-hi)    0%,
-    var(--copper)     28%,
-    var(--pipe-mid)   55%,
-    var(--pipe-shadow) 80%,
-    #040302           100%
-  );
+  background: var(--rust-oxide);
   box-shadow:
-    0 0 0 3px var(--line-bright),
-    0 0 0 4px var(--pipe-shadow),
-    0 3px 8px rgba(0,0,0,0.7);
+    0 0 0 2px var(--rust-dark),
+    0 0 0 3px var(--line-mid),
+    0 2px 4px rgba(0,0,0,0.6);
   z-index: 2;
 }
 
@@ -339,20 +327,18 @@ hr::before {
   background: linear-gradient(
     to right,
     transparent 0%,
-    var(--rust-dark) 10%,
-    var(--rust-oxide) 25%,
-    var(--copper) 42%,
-    var(--sky-bright) 50%,
-    var(--copper) 58%,
-    var(--rust-oxide) 75%,
-    var(--rust-dark) 90%,
+    var(--rust-dark)  12%,
+    var(--rust-oxide) 30%,
+    var(--rust)       50%,
+    var(--rust-oxide) 70%,
+    var(--rust-dark)  88%,
     transparent 100%
   );
   transform-origin: center;
   animation: lineGrow 0.7s ease both 0.1s;
 }
 
-/* Bottom: full-width pipe */
+/* ヘッダー下端 — フラットな錆の帯 */
 .site-header::after {
   content: '';
   display: block;
@@ -360,16 +346,11 @@ hr::before {
   height: 8px;
   background: linear-gradient(
     to bottom,
-    #060402           0%,
-    #060402           6%,
-    var(--rust-dark)  16%,
-    var(--pipe-hi)    34%,
-    var(--copper)     48%,
-    var(--pipe-mid)   64%,
-    var(--pipe-shadow) 82%,
-    #060402           100%
+    var(--rust-dark)   0%,
+    var(--rust-oxide)  50%,
+    var(--rust-dark)   100%
   );
-  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 /* ── Site title ── */
@@ -380,18 +361,16 @@ hr::before {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg-bright);
-  text-shadow: 0 0 40px rgba(201, 168, 64, 0.18);
   line-height: 1.1;
 }
 
 .site-header h1 a {
   color: var(--fg-bright);
-  transition: color 0.25s, text-shadow 0.25s;
+  transition: color 0.25s;
 }
 
 .site-header h1 a:hover {
   color: var(--gold);
-  text-shadow: 0 0 24px rgba(201, 168, 64, 0.35);
 }
 
 .tagline {
@@ -503,18 +482,14 @@ h2::after {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 5px;
-  /* Mini pipe cross-section */
+  height: 4px;
   background: linear-gradient(
     to bottom,
-    #060402         0%,
-    var(--rust-dark) 15%,
-    var(--pipe-hi)   38%,
-    var(--pipe-mid)  60%,
-    var(--pipe-shadow) 85%,
-    #060402         100%
+    var(--rust-dark)   0%,
+    var(--rust-oxide)  55%,
+    var(--rust-dark)   100%
   );
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 h3 {
@@ -612,10 +587,10 @@ time {
   /* Iron plate with rivet dots at all four corners */
   background-color: var(--bg-card);
   background-image:
-    radial-gradient(circle 2.5px at 7px 7px,       var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 2.5px at calc(100% - 7px) 7px, var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 2.5px at 7px calc(100% - 7px), var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 2.5px at calc(100% - 7px) calc(100% - 7px), var(--pipe-hi) 50%, transparent 50%);
+    radial-gradient(circle 2.5px at 7px 7px,       var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at calc(100% - 7px) 7px, var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at 7px calc(100% - 7px), var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 2.5px at calc(100% - 7px) calc(100% - 7px), var(--rust-oxide) 50%, transparent 50%);
   background-repeat: no-repeat;
   border: 1px solid var(--line-bright);
   text-decoration: none;
@@ -627,21 +602,14 @@ time {
     border-color 0.22s ease;
 }
 
-/* Mini-pipe top bar */
+/* カード上端 — フラットな錆の帯 */
 .work-card::before {
   content: '';
   display: block;
-  height: 5px;
+  height: 4px;
   flex-shrink: 0;
-  background: linear-gradient(
-    to bottom,
-    #060402         0%,
-    var(--rust-dark) 15%,
-    var(--pipe-hi)   35%,
-    var(--rust-oxide) 58%,
-    var(--pipe-shadow) 85%,
-    #060402         100%
-  );
+  background: var(--rust-dark);
+  border-bottom: 1px solid var(--rust-oxide);
 }
 
 /* Rust streak on right edge — 錆の垂れ */
@@ -665,8 +633,8 @@ time {
 }
 
 .work-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--glow-sky), var(--shadow-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-deep);
   border-color: var(--sky);
   text-decoration: none;
 }
@@ -722,10 +690,10 @@ time {
   /* Iron panel with rivets at all four corners */
   background-color: var(--bg-card);
   background-image:
-    radial-gradient(circle 3px at 10px 10px,         var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 3px at calc(100% - 10px) 10px, var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 3px at 10px calc(100% - 10px), var(--pipe-hi) 50%, transparent 50%),
-    radial-gradient(circle 3px at calc(100% - 10px) calc(100% - 10px), var(--pipe-hi) 50%, transparent 50%);
+    radial-gradient(circle 3px at 10px 10px,         var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 3px at calc(100% - 10px) 10px, var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 3px at 10px calc(100% - 10px), var(--rust-oxide) 50%, transparent 50%),
+    radial-gradient(circle 3px at calc(100% - 10px) calc(100% - 10px), var(--rust-oxide) 50%, transparent 50%);
   background-repeat: no-repeat;
   border: 1px solid var(--line-bright);
   padding: 2.25rem 2.5rem;
@@ -733,22 +701,19 @@ time {
   overflow: hidden;
 }
 
-/* Top pipe bar */
+/* 記事パネル上端 — フラットな錆帯 */
 .post::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 5px;
   background: linear-gradient(
     to bottom,
-    #060402           0%,
-    var(--rust-dark)  12%,
-    var(--pipe-hi)    32%,
-    var(--rust-oxide) 55%,
-    var(--pipe-shadow) 82%,
-    #060402           100%
+    var(--rust-dark)   0%,
+    var(--rust-oxide)  60%,
+    var(--rust-dark)   100%
   );
 }
 
@@ -877,22 +842,19 @@ pre code {
   letter-spacing: 0.06em;
 }
 
-/* Footer pipe separator */
+/* フッター区切り — フラットな錆帯 */
 .site-footer::before {
   content: '';
   display: block;
-  height: 6px;
+  height: 5px;
   margin-bottom: 1.35rem;
   background: linear-gradient(
     to bottom,
-    #060402           0%,
-    var(--rust-dark)  15%,
-    var(--pipe-hi)    35%,
-    var(--pipe-mid)   60%,
-    var(--pipe-shadow) 85%,
-    #060402           100%
+    var(--rust-dark)   0%,
+    var(--rust-oxide)  55%,
+    var(--rust-dark)   100%
   );
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
 .site-footer a {
