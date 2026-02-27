@@ -1,4 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Oswald:wght@400;500;600&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap');
+
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lotion';
+  src: url('fonts/Lotion/Lotion-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* ══════════════════════════════════════════
    Palette — corroded iron workshop
@@ -325,7 +375,7 @@ hr::before {
 
 /* ── Site title ── */
 .site-header h1 {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: 'Lotion', sans-serif;
   font-size: clamp(1.5rem, 4vw, 2.1rem);
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -358,7 +408,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 0;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Lotion', sans-serif;
   font-weight: 500;
   font-size: 0.82rem;
   letter-spacing: 0.1em;
@@ -437,7 +487,7 @@ nav a[aria-current="page"]::after {
    Headings
    ══════════════════════════════════════════ */
 h2 {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Lotion', sans-serif;
   font-weight: 500;
   font-size: 1.3rem;
   letter-spacing: 0.06em;
@@ -469,7 +519,7 @@ h2::after {
 }
 
 h3 {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Lotion', sans-serif;
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.06em;
@@ -630,6 +680,13 @@ time {
   border-bottom: 1px solid var(--line);
   filter: sepia(0.15) brightness(0.92) contrast(1.05);
   transition: filter 0.25s;
+}
+
+/* 絵カード — 元画像のアスペクト比そのままで表示、クロップなし */
+.work-card--art img {
+  aspect-ratio: unset;
+  object-fit: initial;
+  height: auto;
 }
 
 .work-card:hover img {
