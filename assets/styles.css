@@ -137,7 +137,7 @@
    Body + Background
    ══════════════════════════════════════════ */
 html {
-  background: var(--bg-deep);
+  background: #0d0a07;
 }
 
 body {
@@ -203,7 +203,6 @@ body {
       rgba(80, 30, 8, 0.04) 281px
     );
   min-height: 100vh;
-  animation: pageFade 0.55s ease both;
 }
 
 /* Grime + noise overlay */
